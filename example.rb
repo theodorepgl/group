@@ -1,8 +1,5 @@
-    # get the list of all already listed value
-    # get the list of all potential values
-    # if there is only one potential value, that value must belong in that box
-    # if not, then we can't speculate, so we must move onto the next box
-    # repeat overr and over until all of the zeroes are gone. Hi im here hehe.
+# if element == 0
+# end
 
 class SudokuPuzzle
     def initialize(board)
@@ -12,8 +9,22 @@ class SudokuPuzzle
     attr_reader :board
 
     def solve!
-        @board.each do |number|
-            number = 1
+        while !complete?
+            @board.each do |row|
+                row.each_with_index do |number, index|
+                    if number.zero?
+                        row[index] = 1 # can't put 0
+                        # get the list of all already listed value (horizontal, vertical, 3x3 box)
+                        # get the list of all potential values
+                        # if there is only one potential value, that value must belong in that box
+                        # if not, then we can't speculate, so we must move onto the next box
+                        # repeat overr and over until all of the zeroes are gone. Hi im here hehe.
+
+                        horizontal_values = row
+                        vertical_values = board.map { |board_row| board_row[index]}
+                    end
+                end
+            end
         end
     end
 
@@ -22,6 +33,18 @@ class SudokuPuzzle
     end
 
     private
+
+    def horizontal_values
+    end
+
+    def vertical_values
+    end
+
+    # 3x3 box
+    def box_value
+    end
+
+
 end
 
 board = [
@@ -37,5 +60,5 @@ board = [
 ]
 
 puzzle = SudokuPuzzle.new(board)
-puts puzzle.complete?
-pp board
+puzzle.solve!
+pp puzzle.board
